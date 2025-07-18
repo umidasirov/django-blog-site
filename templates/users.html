@@ -1,0 +1,23 @@
+{% extends "index.html" %}
+{% block content %}
+<table style="width:100%">
+    <tr>
+        <th>#</th>
+        <th>Surname</th>
+        <th>Name</th>
+        <th>E-mail</th>
+        <th>Job</th>
+        <th>Age</th>
+    </tr>
+    {% for item in users %}
+    <tr>
+        <td>{{item.id}}</td>
+        <td>{{item.last_name}}</td>
+        <td>{{item.first_name}}</td>
+        <td>{{item.email}}</td>
+        <td>{{item.profile.job}}</td>
+        <td>{{item.profile.age}}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

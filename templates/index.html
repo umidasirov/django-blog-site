@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="{% static './style/main.css' %}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asosiy Sahifa</title>
+</head>
+
+<body>
+    <nav class="navbar">
+        <a href="/" class="logo">My<span>Blog</span></div>
+            <ul class="nav-links">
+                <li><a href="/">Asosiy</a></li>
+                <li><a href="{% url 'blog' %}">Blog</a></li>
+                <li><a href="#">Biz Xaqimizda</a></li>
+                <li><a href="#">Kontaktlar</a></li>
+                <li><a href="{% url 'users' %}">Пользователи</a></li>
+            </ul>
+    </nav>
+    <div>
+        {% block content %}
+        <h1>Bu Asosiy page</h1>
+        {% endblock %}
+    </div>
+</body>
+
+</html>
