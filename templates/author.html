@@ -1,0 +1,26 @@
+{% extends "index.html" %}
+{% block content %}
+<div class="bg-dark/40 p-2 w-full text-center">
+    <table class="w-full mx-auto text-left border-collapse">
+        <thead>
+            <tr class="bg-gray-900">
+                <th class="p-2 border">#</th>
+                <th class="p-2 border">Maqola nomi</th>
+                <th class="p-2 border">maqola urli</th>
+                <th class="p-2 border">vaqti</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in auth %}
+            <tr class="bg-dark/70 hover:bg-gray-900">
+                <td class="p-2 border">{{ forloop.counter }}</td>
+                <td class="p-2 border">{{ item.title }}</td>
+                <td class="p-2 border"><a href="{% url 'blog_desk' item.slug %}">{{item.slug}}</a></td>
+                <td class="p-2 border">{{ item.updated_at }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

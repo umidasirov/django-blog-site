@@ -1,23 +1,33 @@
 {% extends "index.html" %}
 {% block content %}
-<table style="width:100%">
-    <tr>
-        <th>#</th>
-        <th>Surname</th>
-        <th>Name</th>
-        <th>E-mail</th>
-        <th>Job</th>
-        <th>Age</th>
-    </tr>
-    {% for item in users %}
-    <tr>
-        <td>{{item.id}}</td>
-        <td>{{item.last_name}}</td>
-        <td>{{item.first_name}}</td>
-        <td>{{item.email}}</td>
-        <td>{{item.profile.job}}</td>
-        <td>{{item.profile.age}}</td>
-    </tr>
-    {% endfor %}
-</table>
+<div class="bg-dark/40 p-2 w-full text-center">
+    <table class="w-full mx-auto text-left border-collapse">
+        <thead>
+            <tr class="bg-gray-900">
+                <th class="p-2 border">#</th>
+                <th class="p-2 border">Familiya</th>
+                <th class="p-2 border">Ism</th>
+                <th class="p-2 border">E-mail</th>
+                <th class="p-2 border">Kasbi</th>
+                <th class="p-2 border">Yoshi</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in users %}
+            <tr class="bg-dark/70 hover:bg-gray-900">
+                <td class="p-2 border">{{ forloop.counter }}</td>
+                <td class="p-2 border">
+                    <a href="{% url 'author' item.first_name %}">{{ item.last_name }}</a>
+                </td>
+                <td class="p-2 border">
+                    <a href="{% url 'author' item.first_name %}">{{ item.first_name }}</a>
+                </td>
+                <td class="p-2 border">{{ item.email }}</td>
+                <td class="p-2 border">{{ item.profile.job }}</td>
+                <td class="p-2 border">{{ item.profile.age }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
 {% endblock %}

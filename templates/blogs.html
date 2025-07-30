@@ -1,18 +1,22 @@
 {% extends "index.html" %}
 {% block content %}
 <title>Blogs</title>
-<div class="block-main">
+<div class="block-main p-4 flex items-center">
     {% for i in blog %}
-    <a href="">
-        <div class="block-blog">
-            <h1>
+    <div
+        class="block-blog bg-transparent rounded-xl hover:shadow-md hover:scale-105 backdrop-blur-xs backdrop-blur-[#0077ff] w-1/4 border border-[#0077ff] shadow-[#0077ff] shadow-m h-[100px] p-4">
+        <a href="{% url 'blog_desk' i.slug %}">
+            <h1 class="h-2/4 mb-[10px]" id="blog_title">
                 {{i.title}}
             </h1>
-            <div>
-                {{i.updated_at}} <span class="logo">Muallif <span>{{i.author}}</span></span>
+            <div class="block-author flex">
+                <span>
+                    {{i.updated_at}}
+                </span>
+                <p class="blog-author flex items-center ml-2">Muallif:<a class="hover:text-sky-600 ml-2 text-gray-100 p-1 border bg-[#0077ff] border-[#0077ff] rounded" href="{% url 'author' i.author %}">{{i.author}}</a></p>
             </div>
-        </div>
-    </a>
+        </a>
+    </div>
     {% endfor %}
 </div>
 {% endblock %}

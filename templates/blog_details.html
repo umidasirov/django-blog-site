@@ -1,0 +1,9 @@
+{% extends "index.html" %}
+{% block content %}
+<title>{{ blogs.slug }}</title>
+<div class="block-main">
+    <div class="block-blog">
+        {{ blogs.content }}        
+    </div>
+</div>
+{% endblock %}
