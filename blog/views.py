@@ -67,3 +67,6 @@ def register(request):
 
 def test_404(request):
     return render(request, '404.html', status=404)
+def profile(request,author):
+    posts = Post.objects.filter(author__username=author)
+    return render(request,'profile.html',{'auth': posts})

@@ -8,12 +8,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css"
+        integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>Asosiy Sahifa</title>
 </head>
 
 <body class="body flex-col flex">
-    <nav class="backdrop-blur-xl bg-gradient-to-r from-black to-zinc-900 text-white px-10 py-4 shadow-md flex justify-between items-center">
+    <nav
+        class="border-b border-blue-500 backdrop-blur-xl bg-gradient-to-r from-black to-zinc-900 text-white px-10 py-4 shadow-md flex justify-between items-center">
         <a href="/" class="text-2xl font-bold text-red-600">
             My<span class="text-blue-500">Blog</span>
         </a>
@@ -24,15 +27,18 @@
             <li><a href="{% url 'users' %}"
                     class="hover:bg-red-600 px-3 py-2 rounded transition-all">Foydalanuvchilar</a></li>
         </ul>
-<div class="flex items-center gap-4 px-10">
-    {% if request.user.is_authenticated %}
-        <span class="text-white">Salom, {{ request.user.username }}!</span>
-        <a href="/logout/" class="bg-gray-700 hover:bg-gray-600 text-white font-medium px-4 py-2 rounded">Chiqish</a>
-    {% else %}
-        <a href="/login/" class="bg-blue-600 hover:bg-blue-500 text-white font-medium px-4 py-2 rounded">Login</a>
-        <a href="/register/" class="bg-red-600 hover:bg-red-500 text-white font-medium px-4 py-2 rounded">Sign Up</a>
-    {% endif %}
-</div>
+        <div class="flex items-center gap-4 px-10">
+            {% if request.user.is_authenticated %}
+            <span class="text-white">Salom, {{ request.user.username }}!</span>
+            <a href="{% url 'profile' request.user.username %}">profilga</a>
+            <a href="/logout/"
+                class="bg-gray-700 hover:bg-gray-600 text-white font-medium px-4 py-2 rounded">Chiqish</a>
+            {% else %}
+            <a href="/login/" class="bg-blue-600 hover:bg-blue-500 text-white font-medium px-4 py-2 rounded">Login</a>
+            <a href="/register/" class="bg-red-600 hover:bg-red-500 text-white font-medium px-4 py-2 rounded">Sign
+                Up</a>
+            {% endif %}
+        </div>
     </nav>
 
     <div class="flex-1">

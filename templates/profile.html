@@ -1,0 +1,48 @@
+{% extends "index.html" %}
+{% block content %}
+<div class="backdrop-blur-xs">
+    {{ request.user.username }}
+    <p>
+        {{ request.user.last_name }}
+    </p>
+    <p>
+        {{request.user.first_name}}
+    </p>
+    <p>
+        {{request.profile.job}}
+    </p>
+    <h1 class="text-[40px] text-center">Mening Maqolalarim</h1>
+    <table class="w-full mx-auto text-left border-collapse">
+        <thead>
+            <tr class="bg-gray-900">
+                <th class="p-2 border">#</th>
+                <th class="p-2 border">Familiya</th>
+                <th class="p-2 border">Ism</th>
+                <th class="p-2 border">E-mail</th>
+                <th class="p-2 border">Kasbi</th>
+                <th class="p-2 border">Yoshi</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if auth.lenght > 0 %}
+            <p>Hali hech narso yo'q</p>
+            {% else %}
+            {% for item in auth %}
+            <tr class="bg-dark/70 hover:bg-gray-900">
+                <td class="p-2 border">{{ forloop.counter }}</td>
+                <td class="p-2 border">
+                    <a href="{% url 'author' item.username %}">{{ item.last_name }}</a>
+                </td>
+                <td class="p-2 border">
+                    <a href="{% url 'author' item.username %}">{{ item.username }}</a>
+                </td>
+                <td class="p-2 border">{{ item.email }}</td>
+                <td class="p-2 border">{{ item.profile.job }}</td>
+                <td class="p-2 border">{{ item.profile.age }}</td>
+            </tr>
+            {% endfor %}
+            {% endif %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
