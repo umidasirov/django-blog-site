@@ -51,8 +51,13 @@ def user_logout(request):
 def register(request):
     if request.method == 'POST':
         username = request.POST['username']
+        age = request.POST['age']
+        first_name = request.POST['first_name']
+        last_name = request.POST['last_name']
+        job = request.POST['job']
         password = request.POST['password']
         password2 = request.POST['password2']
+        email = request.POST['email']
 
         if password != password2:
             return render(request, 'register.html', {'error': 'Parollar mos emas!'})
@@ -60,13 +65,46 @@ def register(request):
         if User.objects.filter(username=username).exists():
             return render(request, 'register.html', {'error': 'Bu foydalanuvchi allaqachon mavjud!'})
 
-        user = User.objects.create_user(username=username, password=password)
+        user = User.objects.create_user(
+            username=username,
+            password=password,
+            first_name=first_name,
+            last_name=last_name,
+            email=email
+        )
+        Profile.objects.create(user=user, age=int(age), job=job, status="Active")
+
         login(request, user)
-        return redirect('home')  # yoki boshqa sahifa
+        return redirect('home')
+
     return render(request, 'register.html')
+
 
 def test_404(request):
     return render(request, '404.html', status=404)
 def profile(request,author):
     posts = Post.objects.filter(author__username=author)
     return render(request,'profile.html',{'auth': posts})
+def delete(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    post.delete()
+    return redirect('profile',author=request.user.username)
+@login_required
+def new_post(request):
+    return render(request,'new_post.html',)
+@login_required
+def create_post(request):
+    if request.method == "POST":
+        title = request.POST.get("title")
+        content = request.POST.get("content")
+
+        if not title or not content:
+            return render(request, "new_post.html", {"error": "Iltimos, barcha maydonlarni to'ldiring."})
+
+        Post.objects.create(
+            title=title,
+            content=content,
+            author=request.user
+        )
+        return redirect("home")
+    return render(request, "new_post.html")

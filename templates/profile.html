@@ -1,6 +1,6 @@
 {% extends "index.html" %}
 {% block content %}
-<div class="backdrop-blur-xs">
+<div class="backdrop-blur-xs h-full w-[90%] mx-auto">
     {{ request.user.username }}
     <p>
         {{ request.user.last_name }}
@@ -11,38 +11,55 @@
     <p>
         {{request.profile.job}}
     </p>
-    <h1 class="text-[40px] text-center">Mening Maqolalarim</h1>
-    <table class="w-full mx-auto text-left border-collapse">
-        <thead>
-            <tr class="bg-gray-900">
-                <th class="p-2 border">#</th>
-                <th class="p-2 border">Familiya</th>
-                <th class="p-2 border">Ism</th>
-                <th class="p-2 border">E-mail</th>
-                <th class="p-2 border">Kasbi</th>
-                <th class="p-2 border">Yoshi</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% if auth.lenght > 0 %}
-            <p>Hali hech narso yo'q</p>
-            {% else %}
-            {% for item in auth %}
-            <tr class="bg-dark/70 hover:bg-gray-900">
-                <td class="p-2 border">{{ forloop.counter }}</td>
-                <td class="p-2 border">
-                    <a href="{% url 'author' item.username %}">{{ item.last_name }}</a>
-                </td>
-                <td class="p-2 border">
-                    <a href="{% url 'author' item.username %}">{{ item.username }}</a>
-                </td>
-                <td class="p-2 border">{{ item.email }}</td>
-                <td class="p-2 border">{{ item.profile.job }}</td>
-                <td class="p-2 border">{{ item.profile.age }}</td>
-            </tr>
-            {% endfor %}
-            {% endif %}
-        </tbody>
-    </table>
+    <h1 class="text-[40px] text-center text-red-600">Mening <span class="text-blue-600">Maqolalarim</span></h1>
+    <div class="w-full text-center mt-[30px] mb-[20px]">
+        <a href="{% url 'new_post' %}" class="w-50% mx-auto text-center">
+            <button class="2-full border p-4 rounded-md text-gray-100 border-blue-600 text-[20px] hover:text-[#fff] hover:bg-blue-600">
+                yangi post qo'shish <span class="text-red-600">[+]</span>
+            </button>
+        </a>
+    </div>
+    {% if auth|length < 1 %} <p>Hali hech narsa yo'q</p>
+        {% else %}
+        <table class="w-full mx-auto text-left border-collapse">
+            <thead>
+                <tr class="bg-gray-900">
+                    <th class="p-2 border">#</th>
+                    <th class="p-2 border">Maqola nomi</th>
+                    <th class="p-2 border">maqola urli</th>
+                    <th class="p-2 border">vaqti</th>
+                    <th class="p-2 border">amallar</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in auth %}
+                <tr class="bg-dark/70 hover:bg-gray-900">
+                    <td class="p-2 border">{{ forloop.counter }}</td>
+                    <td class="p-2 border">{{ item.title }}</td>
+                    <td class="p-2 border"><a href="{% url 'blog_desk' item.slug %}">{{item.slug}}</a></td>
+                    <td class="p-2 border">{{ item.updated_at }}</td>
+                    <td class="p-2 border flex items-center justify-between">
+                        <a href="{% url 'delete' item.id %}">
+                            <button>
+                                <i class="fa-solid text-red-500 fa-trash"></i>
+                            </button>
+                        </a>
+                        <a href="" class="">
+                            <button>
+                                <i class="fa-solid text-yellow-400 fa-pen"></i>
+                            </button>
+                        </a>
+                        <a href="">
+                            <button>
+                                <i class="fa-solid fa-refresh text-blue-400"></i>
+                            </button>
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+
+        </table>
+        {% endif %}
 </div>
 {% endblock %}

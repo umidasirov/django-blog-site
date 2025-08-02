@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path
-from .views import main_view, users,blog,blog_deskripoption,authors,user_login,register,user_logout,profile
+from .views import main_view, users,blog,blog_deskripoption,authors,user_login,register,user_logout,profile,delete,new_post,create_post
 
 urlpatterns = [
     path('',main_view,name='home'),
@@ -12,4 +12,7 @@ urlpatterns = [
     path('register/', register, name='register'),
     path('logout/', user_logout, name='logout'),
     path('profile/<str:author>/', profile, name='profile'),
+    path('delete/<int:pk>/', delete, name='delete'),
+    path('new_post/', new_post, name='new_post'),
+    path('create_post/', create_post, name='create_post'),
 ]
